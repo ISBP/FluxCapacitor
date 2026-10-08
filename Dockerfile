@@ -4,7 +4,7 @@ WORKDIR /jbuild
 
 COPY . .
 
-RUN gradle --no-daemon build
+RUN mvn clean install
 
 
 FROM eclipse-temurin:21-jre-alpine
