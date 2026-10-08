@@ -12,6 +12,7 @@ import xyz.pbsi.Interfaces.FluxerCommand;
 import java.util.List;
 
 import static xyz.pbsi.Utils.CommandManager.commands;
+import static xyz.pbsi.Utils.Constants.prefix;
 
 public class MessageEvent extends ListenerAdapter {
     private static final Logger log = LoggerFactory.getLogger(MessageEvent.class);
@@ -19,15 +20,19 @@ public class MessageEvent extends ListenerAdapter {
     @Override
     public void onMessageReceived(@NotNull MessageReceivedEvent event) {
         Message message = event.getMessage();
-        if (message.getContentDisplay().startsWith("!fc")) {
+
+        //Only executes codes on messages that start with the correct prefix
+        if (message.getContentDisplay().startsWith(prefix)) {
             String messageContents = message.getContentRaw();
-            messageContents = messageContents.replace("!fc ", "");
+            //Removes the prefix from the message for parsing
+            messageContents = messageContents.replace(prefix + " ", "");
             StringBuilder argsContent = new StringBuilder();
             List<String> args = new java.util.ArrayList<>();
             boolean isCommandIdentifier = true;
             StringBuilder commandIdentifier = new StringBuilder();
-            for(char c: messageContents.toCharArray())
-            {
+            //Splits up the message into the specific command and it's arguments
+            for (int i = 0; i < messageContents.length(); i++) {
+                char c = messageContents.charAt(i);
                 if(isCommandIdentifier && c != ' ')
                 {
                     commandIdentifier.append(c);
@@ -35,15 +40,17 @@ public class MessageEvent extends ListenerAdapter {
                 }
                 if(c != ' '){
                     argsContent.append(c);
-                }else{
+                }
+                if(c == ' ' || (i + 1 >= messageContents.length())){
                     if (isCommandIdentifier) {
                         isCommandIdentifier = false;
                         continue;
-                    };
+                    }
                     args.add(argsContent.toString());
                     argsContent = new StringBuilder();
                 }
             }
+            //Gets the command class and executes the code
             FluxerCommand command =  commands.get(commandIdentifier.toString());
             if(command == null)
             {

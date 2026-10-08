@@ -6,5 +6,6 @@ import java.util.List;
 
 public interface FluxerCommand {
     void run(MessageReceivedEvent event, List<String> args);
+    String description();
 
 }

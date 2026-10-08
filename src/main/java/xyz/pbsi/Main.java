@@ -12,6 +12,7 @@ import xyz.pbsi.Listeners.MessageEvent;
 import java.util.EnumSet;
 
 import static xyz.pbsi.Utils.CommandManager.registerCommand;
+import static xyz.pbsi.Utils.Constants.prefix;
 
 
 public class Main {
@@ -42,6 +43,14 @@ public class Main {
                     .build();
 
             jda.awaitReady();
+
+            //Changes prefix for local testing
+            if(jda.getSelfUser().getName().contains("Dev"))
+            {
+                prefix = "!d";
+            }else{
+                prefix = "!fc";
+            }
             registerCommand("ping", new Ping());
             registerCommand("help", new Help());
 

@@ -2,16 +2,23 @@ package xyz.pbsi.Commands;
 
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.entities.channel.unions.MessageChannelUnion;
 import net.dv8tion.jda.api.entities.emoji.Emoji;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import xyz.pbsi.Interfaces.FluxerCommand;
 import xyz.pbsi.Listeners.MessageEvent;
 
 import java.util.List;
 
+import static xyz.pbsi.Utils.Constants.prefix;
+
 
 public class Ping implements FluxerCommand {
+    private static final Logger log = LoggerFactory.getLogger(Ping.class);
+
     @Override
     public void run(MessageReceivedEvent event, List<String> args) {
         Emoji PING = Emoji.fromFormatted("❗");
@@ -34,5 +41,10 @@ public class Ping implements FluxerCommand {
                         .queue();
             }
         }
+    }
+
+    @Override
+    public String description() {
+        return "Displays the latency between the bot and Fluxer servers! Usage ``" + prefix + " ping``";
     }
 }
