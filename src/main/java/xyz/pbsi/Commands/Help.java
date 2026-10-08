@@ -27,7 +27,7 @@ public class Help implements FluxerCommand {
             {
                 commandsList.append(num).append(". ``").append(prefix).append(" ").append(command).append("``").append("\n");
             }
-            eb.setDescription(String.valueOf(commandsList));
+            eb.setDescription("**Commands**:\n" + commandsList);
             event.getMessage().replyEmbeds(eb.build()).queue();
         }else {
             FluxerCommand command =  commands.get(args.getFirst());

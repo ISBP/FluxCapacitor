@@ -2,8 +2,6 @@ package xyz.pbsi;
 
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
-import net.dv8tion.jda.api.entities.emoji.Emoji;
-import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import xyz.pbsi.Commands.Help;
 import xyz.pbsi.Commands.Ping;
@@ -13,6 +11,7 @@ import java.util.EnumSet;
 
 import static xyz.pbsi.Utils.CommandManager.registerCommand;
 import static xyz.pbsi.Utils.Constants.prefix;
+import static xyz.pbsi.Utils.Constants.userID;
 
 
 public class Main {
@@ -44,6 +43,7 @@ public class Main {
 
             jda.awaitReady();
 
+            userID = jda.getSelfUser().getId();
             //Changes prefix for local testing
             if(jda.getSelfUser().getName().contains("Dev"))
             {

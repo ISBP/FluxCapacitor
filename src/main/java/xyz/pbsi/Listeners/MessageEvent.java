@@ -7,12 +7,14 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import xyz.pbsi.Commands.Help;
 import xyz.pbsi.Interfaces.FluxerCommand;
 
 import java.util.List;
 
 import static xyz.pbsi.Utils.CommandManager.commands;
 import static xyz.pbsi.Utils.Constants.prefix;
+import static xyz.pbsi.Utils.Constants.userID;
 
 public class MessageEvent extends ListenerAdapter {
     private static final Logger log = LoggerFactory.getLogger(MessageEvent.class);
@@ -20,7 +22,10 @@ public class MessageEvent extends ListenerAdapter {
     @Override
     public void onMessageReceived(@NotNull MessageReceivedEvent event) {
         Message message = event.getMessage();
-
+        if(message.getContentRaw().contains("<@" + userID + ">")){
+            new Help().run(event, List.of());
+            return;
+        }
         //Only executes codes on messages that start with the correct prefix
         if (message.getContentDisplay().startsWith(prefix)) {
             String messageContents = message.getContentRaw();
