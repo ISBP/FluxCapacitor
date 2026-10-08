@@ -1,4 +1,4 @@
-FROM maven:8.14.4-jdk21-alpine AS builder
+FROM maven:3.10.0-eclipse-temurin-17 AS builder
 
 WORKDIR /jbuild
 
