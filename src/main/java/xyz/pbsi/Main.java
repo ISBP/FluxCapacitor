@@ -14,8 +14,7 @@ import java.util.EnumSet;
 import static xyz.pbsi.Utils.CommandManager.registerCommand;
 
 
-public class Main extends ListenerAdapter {
-    public static final Emoji PING = Emoji.fromFormatted("❗");
+public class Main {
 
     public static void main(String[] args) throws InterruptedException {
 
